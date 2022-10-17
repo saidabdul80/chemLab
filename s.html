@@ -26,18 +26,18 @@
 			camera.position.set(0, 3, 10);
 			
 			const ambient = new THREE.HemisphereLight(0xffffbb, 0x080820);
-			scene.add(ambient);
+			//scene.add(ambient);
 			
-			const light = new THREE.DirectionalLight(0xFFFFFF, 1);
+			const light = new THREE.DirectionalLight(0xFFFFFF, 0.5);
 			light.position.set( 1, 10, 6);
-			scene.add(light);
+			//scene.add(light);
 
 			
 			renderer = new THREE.WebGLRenderer({antialias: true});
 			renderer.setSize( window.innerWidth, window.innerHeight );
 
 			renderer.toneMapping = THREE.ACESFilmicToneMapping
-			renderer.toneMappingExposure = 1.4
+			renderer.toneMappingExposure = 4
 			renderer.outputEncoding = THREE.sRGBEndcoding
 
 			document.body.appendChild( renderer.domElement );
@@ -46,18 +46,18 @@
 			controls.target.set(0,4,0);
 			controls.update();
 
-			new RGBELoader().load("env.hdr",function(texture){
+			new RGBELoader().load("env2.hdr",function(texture){
 				 texture.mapping = THREE.EquirectangularReflectionMapping;
 				 scene.background = texture
 				 scene.environment = texture
-				})
+			})
 
 			const loader = new THREE.GLTFLoader();
             loader.load( 'untitled.glb', function ( gltf ) {
 				
                 scene.add( gltf.scene );
 				camera.lookAt( gltf );
-				let Auditorio = model.scene
+				let Auditorio = gltf.scene
 				Auditorio.position.y = 1.5;
             }, undefined, function ( error ) {
 
@@ -81,7 +81,51 @@ function resize(){
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize( window.innerWidth, window.innerHeight );
+
+  //raycaster
+
+  const raycaster = new THREE.Raycaster();
+
+const mouse = new THREE.Vector2();
+
+function onMouseMove( event ) {
+
+    // calculate mouse position in normalized device coordinates
+
+    // (-1 to +1) for both components
+
+    mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+
+    mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+
 }
+
+function render() {
+
+    // update the picking ray with the camera and mouse position
+
+    raycaster.setFromCamera( mouse, camera );
+
+    // calculate objects intersecting the picking ray
+
+    const intersects = raycaster.intersectObject( scene, true );
+
+    for ( let i = 0; i < intersects.length; i ++ ) {
+
+        intersects[ i ].object.material.color.set( 0xff0000 );
+
+    }
+
+    renderer.render( scene, camera );
+
+}
+
+window.addEventListener( 'mousemove', onMouseMove, false );
+
+window.requestAnimationFrame(render);
+}
+
+
 init()
 			
 		</script>
