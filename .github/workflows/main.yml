@@ -30,7 +30,7 @@ jobs:
  
           
           # will put all file under this path
-          local_path: https://github.com/saidabdul80/chemLab.git
+          local_path: /chemLab
           # files will copy to under remote_path
           remote_path: /home/connjfze/sample.vlabnigeria.org/lab
           
