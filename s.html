@@ -51,8 +51,7 @@
 				 texture.mapping = THREE.EquirectangularReflectionMapping;
 				 scene.background = texture
 				 scene.environment = texture
-			}) */
-			//renderer.render( scene, camera );
+			}) */			
 			const loader = new THREE.GLTFLoader();
             loader.load( 'titeration.glb', function ( gltf ) {
 				
@@ -63,7 +62,7 @@
 				Auditorio.position.x = 0.5;
 				camera.position.z = 10;
 				//update();
-				//renderer.render( scene, camera );
+				renderer.render( scene, camera );
             }, undefined, function ( error ) {
 
                 console.error( error );
