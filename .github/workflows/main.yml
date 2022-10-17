@@ -26,7 +26,7 @@ jobs:
           username: connjfze
           server: 185.61.154.216
           port: 21098 # default is 22
-          ssh_private_key: ${{ secrets.CHEM_LAB_KEY }}
+          ssh_private_key: ${{ secrets.CHEM_LAB_KEY }} 
  
           
           # will put all file under this path
