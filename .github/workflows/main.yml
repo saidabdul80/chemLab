@@ -25,12 +25,12 @@ jobs:
         with:
           username: connjfze
           server: 185.61.154.216
-          port: 22 # default is 22
-          ssh_private_key: ${{ secrets.CHEM_LAB_KEY }}
+          port: 21098 # default is 22
+          ssh_private_key: ${{ secrets.CHEM_LAB_KEY }} 
  
           
           # will put all file under this path
-          local_path: https://github.com/saidabdul80/chemLab.git
+          local_path: ./*
           # files will copy to under remote_path
           remote_path: /home/connjfze/sample.vlabnigeria.org/lab
           
